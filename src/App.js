@@ -1,7 +1,7 @@
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useEffect, useState, useCallback} from 'react';
+import { useEffect, useState} from 'react';
 import { Container } from "react-bootstrap";
 import WeatherBox from './component/WeatherBox'
 import WeatherButton from './component/WeatherButton';
@@ -98,7 +98,7 @@ const App = () => {
       setLoading(true);
       getWeatherByCity();
     }
-  }, [getCurrentLocation, city]);
+  }, [city]);
   
   const handleCityChange = (city) => {
     if (city === "current") {
@@ -112,7 +112,7 @@ const App = () => {
     <>
     <Container>
       {loading ? (
-        <div className="w-100 vh-100 d-flex justify-content-center align-items-center">
+        <div>
           <ClipLoader color="#f88c6b" loading={loading} size={150} aria-label="Loading Spinner" data-testid="loader" />
         </div>
         ) :  !apiError ? (
