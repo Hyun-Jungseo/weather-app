@@ -19,7 +19,7 @@ const WeatherButton = ({cities,selectedCity,handleCityChange}) => {
       {cities.map((city) => (
         <Button 
           className='weather-button'
-          variant={`${selectedCity == city ? "outline-warning" : "warning"}`}
+          variant={`${selectedCity === city ? "outline-warning" : "warning"}`}
           onClick={() => handleCityChange(city)}
         >
           {city}
