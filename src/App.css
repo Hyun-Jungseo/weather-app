@@ -14,10 +14,9 @@ body {
 }
 
 .weather-box {
-  border: 3px solid ivory;
+  border: 3px solid black;
   padding: 50px;
   border-radius: 30px;
-  color: white;
 }
 
 .weather-button-box {
