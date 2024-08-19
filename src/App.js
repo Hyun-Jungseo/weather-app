@@ -1,7 +1,7 @@
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useEffect, useState} from 'react';
+import { useEffect, useState, useCallback} from 'react';
 import { Container } from "react-bootstrap";
 import WeatherBox from './component/WeatherBox'
 import WeatherButton from './component/WeatherButton';
@@ -57,14 +57,15 @@ const App = () => {
     // setLoading(false);
 
 
-  const getCurrentLocation = () => {
+  const getCurrentLocation = useCallback(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
       getWeatherByCurrentLocation(latitude, longitude);
     });
-  };
+  },[]
+)
 
-  const getWeatherByCity = async () => {
+  const getWeatherByCity = useCallback(async () => {
     try {
       let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&units=imperial`;
       const res = await fetch(url);
@@ -77,7 +78,7 @@ const App = () => {
       setAPIError(err.message);
       setLoading(false);
     }
-  };
+  }, [city])
 
   // const getWeatherByCity = async() => {
   //   let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=23e2ef053d51932ae1238c27595d29ad&units=metric&units=imperial`
@@ -98,7 +99,7 @@ const App = () => {
       setLoading(true);
       getWeatherByCity();
     }
-  }, [city]);
+  }, [city, getCurrentLocation, getWeatherByCity]);
   
   const handleCityChange = (city) => {
     if (city === "current") {
